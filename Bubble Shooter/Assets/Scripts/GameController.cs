@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public static bool paused = false;
 
     public Canvas pauseMenu;
-    
+
     public Canvas gameCanvas;
 
     public Text score;
@@ -20,13 +20,13 @@ public class GameController : MonoBehaviour
     private static int shotsValue = -1;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void PauseGame()
@@ -45,14 +45,14 @@ public class GameController : MonoBehaviour
         StartCoroutine(Unpause());
         Time.timeScale = 1;
     }
-    
+
     public void RestartGame()
     {
         paused = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         scoreValue = 0;
         shotsValue = -1;
-        ContinueGame();     
+        ContinueGame();
     }
 
     public void GoToMainMenu()

@@ -2,84 +2,92 @@
 using System.Collections;
 
 
-public class Ball : MonoBehaviour {
+public class Ball : MonoBehaviour
+{
 
-	public enum BALL_TYPE {
-		NONE = -1,
-		TYPE_1,
-		TYPE_2,
-		TYPE_3,
-		TYPE_4,
-		TYPE_5
-	}
+    public enum BALL_TYPE
+    {
+        NONE = -1,
+        TYPE_1,
+        TYPE_2,
+        TYPE_3,
+        TYPE_4,
+        TYPE_5
+    }
 
-	public GameObject[] colorsGO;
+    public GameObject[] colorsGO;
 
-	[HideInInspector]
-	public int row;
+    [HideInInspector]
+    public int row;
 
-	[HideInInspector]
-	public int column;
+    [HideInInspector]
+    public int column;
 
-	[HideInInspector]
-	public BALL_TYPE type;
+    [HideInInspector]
+    public BALL_TYPE type;
 
-	[HideInInspector]
-	public bool visited;
+    [HideInInspector]
+    public bool visited;
 
-	[HideInInspector]
-	public bool connected;
+    [HideInInspector]
+    public bool connected;
 
-	private Vector3 ballPosition;
+    private Vector3 ballPosition;
 
-	private Grid grid;
+    private Grid grid;
 
-	public static bool addLine = false;
+    public static bool addLine = false;
 
-	public void SetBallPosition (Grid grid, int column, int row)
-	{
+    public void SetBallPosition(Grid grid, int column, int row)
+    {
 
-		this.grid = grid;
-		this.column = column;
-		this.row = row;
+        this.grid = grid;
+        this.column = column;
+        this.row = row;
 
-		ballPosition = new Vector3 ( (column * grid.TILE_SIZE) - grid.GRID_OFFSET_X , grid.GRID_OFFSET_Y + (-row * grid.TILE_SIZE)  , 0);
+        ballPosition = new Vector3((column * grid.TILE_SIZE) - grid.GRID_OFFSET_X, grid.GRID_OFFSET_Y + (-row * grid.TILE_SIZE), 0);
 
-		if (column % 2 == 0) {
-			ballPosition.y -= grid.TILE_SIZE * 0.5f;
-		}
+        if (column % 2 == 0)
+        {
+            ballPosition.y -= grid.TILE_SIZE * 0.5f;
+        }
 
-		transform.localPosition = ballPosition;
+        transform.localPosition = ballPosition;
 
-		foreach (var go in colorsGO) {
-			go.SetActive(false);
-		}
-	}
+        foreach (var go in colorsGO)
+        {
+            go.SetActive(false);
+        }
+    }
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.tag == "bullet") {
-			var b = other.gameObject.GetComponent<Bullet>();
-			grid.AddBall(this, b);
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "bullet")
+        {
+            var b = other.gameObject.GetComponent<Bullet>();
+            grid.AddBall(this, b);
             if (addLine)
             {
                 grid.AddLine();
-				addLine = false;
+                addLine = false;
             }
-		}
+        }
 
-	}
+    }
 
-	public void SetType (BALL_TYPE type) {
+    public void SetType(BALL_TYPE type)
+    {
 
-		foreach (var go in colorsGO) {
-			go.SetActive(false);
-		}
+        foreach (var go in colorsGO)
+        {
+            go.SetActive(false);
+        }
 
-		this.type = type;
+        this.type = type;
 
-		if (type == BALL_TYPE.NONE)
-			return;
+        if (type == BALL_TYPE.NONE)
+            return;
 
-		colorsGO [(int)type].SetActive (true);
-	}
+        colorsGO[(int)type].SetActive(true);
+    }
 }

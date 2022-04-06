@@ -13,7 +13,7 @@ public class MenuController : MonoBehaviour
     public Canvas levelMenu;
 
     public Canvas mainMenu;
-    // Start is called before the first frame update
+
     void Start()
     {
         mainMenu = GetComponent<Canvas>();
@@ -21,12 +21,6 @@ public class MenuController : MonoBehaviour
         {
             difficulty = (int)value;
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void PlayRandom()
@@ -42,7 +36,7 @@ public class MenuController : MonoBehaviour
         RayCastShooter.difficulty = difficulty;
         SceneManager.LoadScene("BubbleScene");
     }
-    
+
     public void GoToLevelMenu()
     {
         levelMenu.enabled = true;
